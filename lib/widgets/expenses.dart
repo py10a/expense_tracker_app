@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import 'package:expense_tracker_app/widgets/new_expense.dart';
 import 'package:expense_tracker_app/widgets/expenses_list/expense_list.dart';
 import 'package:expense_tracker_app/constants/colors.dart';
 import 'package:expense_tracker_app/models/expense.dart';
@@ -42,12 +43,29 @@ class _ExpensesState extends State<Expenses> {
     ),
   ];
 
+  /// Opens the modal bottom sheet to add a new expense
+  void _openAddExpenseModal() {
+    showModalBottomSheet(
+      showDragHandle: true,
+      context: context,
+      builder: (context) {
+        return const NewExpense();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense Tracker'),
         backgroundColor: AppColors.primaryColor,
+        actions: [
+          IconButton(
+            onPressed: _openAddExpenseModal,
+            icon: const Icon(Icons.add),
+          ),
+        ],
       ),
       body: Column(
         children: [

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/models/expense.dart';
 
 class ExpenseItem extends StatelessWidget {
-  /// `ExpenseItem` is a widget that displays an individual expense item.
   const ExpenseItem({Key? key, required this.expense}) : super(key: key);
 
   final Expense expense;
