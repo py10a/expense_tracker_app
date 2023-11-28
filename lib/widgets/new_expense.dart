@@ -3,7 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:expense_tracker_app/models/expense.dart';
 
 class NewExpense extends StatefulWidget {
-  const NewExpense({Key? key}) : super(key: key);
+  const NewExpense({
+    super.key,
+    required this.onAddExpense,
+  });
+
+  final void Function(Expense expense) onAddExpense;
 
   @override
   State<NewExpense> createState() {
@@ -32,6 +37,7 @@ class _NewExpenseState extends State<NewExpense> {
     });
   }
 
+  /// Submit the expense to the parent widget.
   void _submitExpense() {
     final name = _nameController.text.trim();
     final cost = double.parse(_costController.text);
@@ -62,13 +68,15 @@ class _NewExpenseState extends State<NewExpense> {
       return;
     }
 
-    final expense = Expense(
-      name: name,
-      cost: cost,
-      date: date,
-      category: _selectedCategory,
+    widget.onAddExpense(
+      Expense(
+        name: name,
+        cost: cost,
+        date: date,
+        category: _selectedCategory,
+      ),
     );
-    Navigator.of(context).pop(expense);
+    Navigator.of(context).pop();
   }
 
   /// dispose() is called when the widget is removed from the widget tree.

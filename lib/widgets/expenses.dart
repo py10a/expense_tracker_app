@@ -49,9 +49,16 @@ class _ExpensesState extends State<Expenses> {
       showDragHandle: true,
       context: context,
       builder: (context) {
-        return const NewExpense();
+        return NewExpense(onAddExpense: _addNewExpense);
       },
     );
+  }
+
+  /// Adds a new expense to the list of expenses
+  void _addNewExpense(Expense newExpense) {
+    setState(() {
+      _expansesList.add(newExpense);
+    });
   }
 
   @override
