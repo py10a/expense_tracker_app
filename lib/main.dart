@@ -3,9 +3,14 @@ import 'package:expense_tracker_app/widgets/expenses.dart';
 
 void main() {
   runApp(
-    const MaterialApp(
+    MaterialApp(
       title: 'Expense Tracker', // used by the OS task switcher
-      home: Expenses(),
+      color: Colors.cyan, // color of the app in the OS task switcher
+      theme: ThemeData(
+        primarySwatch: Colors.cyan,
+        fontFamily: 'Quicksand',
+      ),
+      home: const Expenses(),
     ),
   );
 }

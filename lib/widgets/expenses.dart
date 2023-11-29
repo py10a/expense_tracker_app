@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:expense_tracker_app/widgets/new_expense.dart';
 import 'package:expense_tracker_app/widgets/expenses_list/expense_list.dart';
-import 'package:expense_tracker_app/constants/colors.dart';
 import 'package:expense_tracker_app/models/expense.dart';
 
 class Expenses extends StatefulWidget {
@@ -46,27 +45,68 @@ class _ExpensesState extends State<Expenses> {
   /// Opens the modal bottom sheet to add a new expense
   void _openAddExpenseModal() {
     showModalBottomSheet(
+      isScrollControlled: true,
       showDragHandle: true,
       context: context,
       builder: (context) {
-        return NewExpense(onAddExpense: _addNewExpense);
+        return NewExpense(onAddExpense: _addExpense);
       },
     );
   }
 
   /// Adds a new expense to the list of expenses
-  void _addNewExpense(Expense newExpense) {
+  void _addExpense(Expense expense) {
     setState(() {
-      _expansesList.add(newExpense);
+      _expansesList.add(expense);
     });
+  }
+
+  /// Deletes an expense from the list of expenses
+  void _deleteExpense(Expense expense) {
+    final deletedExpanseIndex = _expansesList.indexOf(expense);
+    setState(() {
+      _expansesList.remove(expense);
+    });
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text('${expense.name} deleted'),
+        duration: const Duration(seconds: 5),
+        action: SnackBarAction(
+          label: 'UNDO',
+          onPressed: () {
+            setState(() {
+              _expansesList.insert(deletedExpanseIndex, expense);
+            });
+          },
+        ),
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
+    Widget mainContent = const Center(
+      child: Text(
+        'No expenses added yet...',
+        style: TextStyle(
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+          color: Color.fromARGB(120, 158, 158, 158),
+        ),
+      ),
+    );
+
+    if (_expansesList.isNotEmpty) {
+      mainContent = ExpenseList(
+        expenses: _expansesList,
+        onDeleteExpense: _deleteExpense,
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Expense Tracker'),
-        backgroundColor: AppColors.primaryColor,
         actions: [
           IconButton(
             onPressed: _openAddExpenseModal,
@@ -76,9 +116,7 @@ class _ExpensesState extends State<Expenses> {
       ),
       body: Column(
         children: [
-          Expanded(
-            child: ExpenseList(expenses: _expansesList),
-          ),
+          Expanded(child: mainContent),
         ],
       ),
     );
