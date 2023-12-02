@@ -3,7 +3,6 @@ import 'package:uuid/uuid.dart';
 
 const uuid = Uuid();
 
-/// `Category` represents the category of an expense.
 enum Category {
   food,
   bills,
@@ -12,7 +11,6 @@ enum Category {
   other,
 }
 
-/// `categoryIcons` is a map of `Category` to `IconData`.
 const Map<Category, IconData> categoryIcons = {
   Category.food: Icons.fastfood,
   Category.bills: Icons.money,

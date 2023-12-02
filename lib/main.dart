@@ -2,15 +2,43 @@ import 'package:flutter/material.dart';
 
 import 'package:expense_tracker_app/widgets/expenses.dart';
 
-var kColorScheme = ColorScheme.fromSeed(
+/// Color scheme
+final kColorScheme = ColorScheme.fromSeed(
   seedColor: const Color.fromARGB(255, 85, 1, 100),
+);
+
+/// Dark color scheme
+final kColorDarkScheme = ColorScheme.fromSeed(
+  brightness: Brightness.dark,
+  seedColor: const Color.fromARGB(255, 11, 1, 100),
 );
 
 void main() {
   runApp(
     MaterialApp(
       title: 'Expense Tracker',
-      color: kColorScheme.primary,
+      themeMode: ThemeMode.dark,
+      home: const Expenses(),
+
+      /// Dark theme
+      darkTheme: ThemeData.dark().copyWith(
+        colorScheme: kColorDarkScheme,
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kColorDarkScheme.primary,
+            foregroundColor: kColorDarkScheme.primaryContainer,
+          ),
+        ),
+        cardTheme: const CardTheme().copyWith(
+          color: kColorDarkScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(
+            vertical: 8,
+            horizontal: 16,
+          ),
+        ),
+      ),
+
+      /// Light theme
       theme: ThemeData.light().copyWith(
         colorScheme: kColorScheme,
         appBarTheme: const AppBarTheme().copyWith(
@@ -34,10 +62,15 @@ void main() {
           color: kColorScheme.onSecondaryContainer,
         ),
         textTheme: const TextTheme().copyWith(
-          titleLarge: const TextStyle(
+          titleLarge: TextStyle(
             fontSize: 24,
             fontWeight: FontWeight.bold,
-            color: Colors.black,
+            color: kColorScheme.onSecondaryContainer,
+          ),
+          titleMedium: TextStyle(
+            fontSize: 20,
+            fontWeight: FontWeight.bold,
+            color: kColorScheme.onSecondaryContainer,
           ),
           bodyMedium: TextStyle(
             fontSize: 16,
@@ -51,7 +84,6 @@ void main() {
           ),
         ),
       ),
-      home: const Expenses(),
     ),
   );
 }
