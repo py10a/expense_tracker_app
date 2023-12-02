@@ -2,20 +2,52 @@ import 'package:flutter/material.dart';
 
 import 'package:expense_tracker_app/widgets/expenses.dart';
 
+var kColorScheme = ColorScheme.fromSeed(
+  seedColor: const Color.fromARGB(255, 85, 1, 100),
+);
+
 void main() {
   runApp(
     MaterialApp(
       title: 'Expense Tracker',
-      color: const Color.fromARGB(255, 218, 167, 227),
+      color: kColorScheme.primary,
       theme: ThemeData.light().copyWith(
-        primaryColor: const Color.fromARGB(255, 218, 167, 227),
-        scaffoldBackgroundColor: const Color.fromARGB(255, 238, 221, 240),
-        appBarTheme: const AppBarTheme(
-          backgroundColor: Color.fromARGB(255, 218, 167, 227),
-          foregroundColor: Color.fromARGB(255, 252, 232, 255),
-          elevation: 0.0,
-          iconTheme: IconThemeData(
-            color: Color.fromARGB(255, 252, 232, 255),
+        colorScheme: kColorScheme,
+        appBarTheme: const AppBarTheme().copyWith(
+          backgroundColor: kColorScheme.primary,
+          foregroundColor: kColorScheme.primaryContainer,
+        ),
+        cardTheme: const CardTheme().copyWith(
+          color: kColorScheme.secondaryContainer,
+          margin: const EdgeInsets.symmetric(
+            vertical: 8,
+            horizontal: 16,
+          ),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: kColorScheme.primary,
+            foregroundColor: kColorScheme.primaryContainer,
+          ),
+        ),
+        iconTheme: const IconThemeData().copyWith(
+          color: kColorScheme.onSecondaryContainer,
+        ),
+        textTheme: const TextTheme().copyWith(
+          titleLarge: const TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
+          bodyMedium: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.normal,
+            color: kColorScheme.onSecondaryContainer,
+          ),
+          bodySmall: TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.normal,
+            color: kColorScheme.onSecondaryContainer,
           ),
         ),
       ),
