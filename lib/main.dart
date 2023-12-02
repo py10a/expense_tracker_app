@@ -17,7 +17,7 @@ void main() {
   runApp(
     MaterialApp(
       title: 'Expense Tracker',
-      themeMode: ThemeMode.dark,
+      themeMode: ThemeMode.system,
       home: const Expenses(),
 
       /// Dark theme

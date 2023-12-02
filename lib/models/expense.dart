@@ -47,3 +47,31 @@ class Expense {
     return '${date.day}.${date.month}.${date.year}';
   }
 }
+
+class ExpenseBucket {
+  /// `ExpenseBucket` represents a bucket of expenses.
+  ///
+  /// The [category] category of the bucket.
+  /// The [expanses] list of expanses in the bucket.
+  ///
+  const ExpenseBucket({
+    required this.category,
+    required this.expanses,
+  });
+
+  /// Returns a new `ExpenseBucket` with the given [category] and [expanses].
+  ExpenseBucket.forCategory(
+    List<Expense> allExpenses,
+    this.category,
+  ) : expanses = allExpenses
+            .where((expense) => expense.category == category)
+            .toList();
+
+  final Category category;
+  final List<Expense> expanses;
+
+  /// Returns the total cost of all expanses in the bucket.
+  double get totalCost {
+    return expanses.fold(0, (sum, expense) => sum + expense.cost);
+  }
+}
