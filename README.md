@@ -4,6 +4,9 @@
 
 The Flutter app that track their daily expenses and provides a visual representation of the same.
 
+## Business logic
+![The photo of Business logic](./screenshots/eta.jpg)
+
 ## Features
 
 - Add new transactions
