@@ -14,6 +14,10 @@ final kColorDarkScheme = ColorScheme.fromSeed(
 );
 
 void main() {
+  // WidgetsFlutterBinding.ensureInitialized();
+  // SystemChrome.setPreferredOrientations([
+  //   DeviceOrientation.portraitUp,
+  // ]).then((value) {
   runApp(
     MaterialApp(
       title: 'Expense Tracker',
@@ -86,4 +90,5 @@ void main() {
       ),
     ),
   );
+  // });
 }
